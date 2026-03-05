@@ -40,6 +40,10 @@ app.use(
 app.use(express.json({ limit: '2mb' }));
 app.use(morgan('dev'));
 
+app.get('/', (_req, res) => {
+  res.status(200).json({ status: 'ok', service: 'ai-clinic-backend' });
+});
+
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok', service: 'ai-clinic-backend' });
 });

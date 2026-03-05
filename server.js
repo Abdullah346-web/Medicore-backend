@@ -24,14 +24,12 @@ const shutdown = (signal) => {
 const bootstrap = async () => {
   try {
     await connectDB();
-    try {
-      await ensureDemoStaffUsers();
-    } catch (error) {
-      console.warn('Demo user seeding skipped:', error?.message || error);
-    }
-
     server = app.listen(PORT, HOST, () => {
       console.log(`Backend running on ${HOST}:${PORT}`);
+
+      ensureDemoStaffUsers().catch((error) => {
+        console.warn('Demo user seeding skipped:', error?.message || error);
+      });
     });
 
     server.on('error', (error) => {
